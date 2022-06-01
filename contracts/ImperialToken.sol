@@ -37,8 +37,6 @@ contract ImperialToken is ERC721URIStorage {
     );
     
     string memory finalTokenUri = string( abi.encodePacked("data:application/json;base64,", json) );
-    console.log("\n--------------------");
-    console.log(finalTokenUri);
 
     _safeMint(msg.sender, newTokenId);
     _setTokenURI(newTokenId, finalTokenUri);
