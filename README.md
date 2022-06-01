@@ -1,5 +1,6 @@
 # TokenURI valido
 - validar la estructura que nos ofrece OpenSea para adjuntar nuestro JSON correcto
+- ejecutar contrato sin despliegue `npx hardhat run scripts/run.js`
 ```
   { 
     "name":"Tommy",
