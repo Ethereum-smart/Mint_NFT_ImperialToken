@@ -16,6 +16,8 @@ contract ImperialToken is ERC721URIStorage {
 
   constructor () ERC721("ImperialToken", "IMP") {}
 
+  event NewTokenEvent(address indexed sender, uint256 tokenId);
+
   function makeAnNFT() public {
 
     uint256 newTokenId = _tokenIds.current();
@@ -41,7 +43,7 @@ contract ImperialToken is ERC721URIStorage {
     _safeMint(msg.sender, newTokenId);
     _setTokenURI(newTokenId, finalTokenUri);
     _tokenIds.increment();
-
+    emit NewTokenEvent(msg.sender, newTokenId);
   }
 
 }
