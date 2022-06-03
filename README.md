@@ -24,3 +24,4 @@
   };
 ```
 - y finalmente ejecutamos `npx hardhat run scripts/deploy.js --network rinkeby`
+- polygon mumbai `npx hardhat run scripts/deploy.js --network mumbai`

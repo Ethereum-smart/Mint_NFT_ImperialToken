@@ -18,7 +18,12 @@ contract ImperialToken is ERC721URIStorage {
 
   event NewTokenEvent(address indexed sender, uint256 tokenId);
 
-  function makeAnNFT() public {
+  modifier limitMint{
+    require(_tokenIds.current() <= 50, "Limit reached");
+    _;
+  }
+
+  function makeAnNFT() public limitMint {
 
     uint256 newTokenId = _tokenIds.current();
     string memory combinedWord = string(abi.encodePacked("The ", Strings.toString(newTokenId)));
@@ -45,5 +50,9 @@ contract ImperialToken is ERC721URIStorage {
     _tokenIds.increment();
     emit NewTokenEvent(msg.sender, newTokenId);
   }
+
+  function getTotalSupply() public view returns (uint256) {
+    return _tokenIds.current();
+  } 
 
 }
