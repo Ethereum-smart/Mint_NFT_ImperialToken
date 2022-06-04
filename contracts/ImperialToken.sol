@@ -12,8 +12,6 @@ contract ImperialToken is ERC721URIStorage {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
-  string baseSvg = "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 350 350'><style>.base { fill: white; font-family: serif; font-size: 24px; }</style><rect width='100%' height='100%' fill='brown' /><text x='50%' y='50%' class='base' dominant-baseline='middle' text-anchor='middle'>";
-
   constructor () ERC721("ImperialToken", "IMP") {}
 
   event NewTokenEvent(address indexed sender, uint256 tokenId);
@@ -26,18 +24,16 @@ contract ImperialToken is ERC721URIStorage {
   function makeAnNFT() public limitMint {
 
     uint256 newTokenId = _tokenIds.current();
-    string memory combinedWord = string(abi.encodePacked("The ", Strings.toString(newTokenId)));
-    string memory finalSvg = string(abi.encodePacked(baseSvg, combinedWord , "</text></svg>"));
 
     string memory json = Base64.encode(
         bytes(
             string(
                 abi.encodePacked(
-                    '{"name": "',
-                    combinedWord,
-                    '", "description": "A highly acclaimed collection of squares.", "image": "data:image/svg+xml;base64,',
-                    Base64.encode(bytes(finalSvg)),
-                    '"}'
+                    '{',
+                    '"name": "The NFT",',
+                    '"description": "A highly acclaimed collection of squares.",',
+                    '"image": "ipfs://Qmaz8oDvAKqJTxoNKYkd1xj4AJM45rNTRVD6LTpdka33gE/"'
+                    '}'
                 )
             )
         )
@@ -49,6 +45,7 @@ contract ImperialToken is ERC721URIStorage {
     _setTokenURI(newTokenId, finalTokenUri);
     _tokenIds.increment();
     emit NewTokenEvent(msg.sender, newTokenId);
+
   }
 
   function getTotalSupply() public view returns (uint256) {
